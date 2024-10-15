@@ -1,15 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { items as initialItems } from "../items"; // Import initial items data
-import { data as locationsData } from "../locations"; // Import locations data
+// import { items as initialItems } from "../items"; // Import initial items data
+// import { data as locationsData } from "../locations"; // Import locations data
 import { IoIosArrowDropdownCircle, IoIosArrowDropright } from "react-icons/io";
 import "./TreeView.css";
+import axios from "axios"
 
 const ITEM_TYPE = "ITEM"; // Define a type for draggable items
 
 const TreeView = ({ onItemSelected }) => {
-    const [items, setItems] = useState(initialItems); // State to manage items
+
     const [expandedNodes, setExpandedNodes] = useState([]);
+    const [initialItems, setInitialItems] = useState([])
+    const [locationsData, setLocationsData] = useState([])
+    const [items, setItems] = useState(initialItems);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    useEffect(() => {
+        const getAllData = async () => {
+            try {
+                // Making two requests: one for items, one for locations
+                const [itemsResponse, locationsResponse] = await Promise.all([
+                    axios.get(`${BACKEND_URL}/api/items`),
+                    axios.get(`${BACKEND_URL}/api/locations`)
+                ]);
+
+                // Storing the response data into state variables
+                setInitialItems(itemsResponse.data);
+                setItems(itemsResponse.data);
+                setLocationsData(locationsResponse.data);
+            } catch (err) {
+                // Handle error (optional)
+                setError(err.message || "Error fetching data");
+            } finally {
+                // Set loading to false after fetching
+                setLoading(false);
+            }
+        };
+
+        getAllData();
+    }, []); // The empty dependency array ensures this runs once on component mount
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     // Update the item's godown_id when dragged to a new location
     const updateItemGodown = (itemId, newGodownId) => {
@@ -125,7 +165,7 @@ const DropTargetLocation = ({
                 paddingLeft: `${level * 20}px`,
                 backgroundColor: isOver
                     ? `rgba(144, 238, 144, 0.5)` // Light green with opacity when hovered
-                    : `rgb(${240 - level * 10}, ${240 - level * 10}, ${240 - level * 10})`,
+                    : `rgb(${Math.max(0, 0 + level * 2)}, ${Math.max(0, 21 + level * 1)}, ${Math.max(0, 36 + level * 1.5)})`,
                 borderLeft: isOver ? "3px solid green" : "none", // Add a left border for hover indication
                 transition: "background-color 0.2s ease", // Smooth background color change
             }}

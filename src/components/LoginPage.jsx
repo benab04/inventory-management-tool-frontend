@@ -11,7 +11,7 @@ function Login({ onLogin }) {
         e.preventDefault();
         if (username === "admin" && password === "password123") {
             onLogin(true); // This will call the App.js function and set isLoggedIn to true
-            navigate("/tree-view"); // Redirect to TreeView after login
+            navigate("/warehouses"); // Redirect to TreeView after login
         } else {
             alert("Invalid credentials");
         }
@@ -20,7 +20,7 @@ function Login({ onLogin }) {
     return (
         <div className="login-page">
             <form onSubmit={handleSubmit}>
-                <h2>Login</h2>
+                <h2 style={{ color: "#001524" }}>Sign In</h2>
                 <input
                     type="text"
                     placeholder="Username"
@@ -35,7 +35,7 @@ function Login({ onLogin }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <button className="submit-btn" type="submit">Login</button>
             </form>
         </div>
     );

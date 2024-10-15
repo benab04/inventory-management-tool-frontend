@@ -33,7 +33,7 @@ function App() {
 
             {/* Protected Tree View Route */}
             <Route
-              path="/tree-view"
+              path="/warehouses"
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <div className="content-container">
