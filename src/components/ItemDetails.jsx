@@ -87,7 +87,7 @@ function ItemDetails({ item }) {
                     {renderAttributes(item.attributes)}
                 </motion.div>
 
-                {/* Description */}
+                {/* Description
                 <motion.p
                     className="item-description"
                     initial={{ opacity: 0, y: 10 }}
@@ -95,7 +95,7 @@ function ItemDetails({ item }) {
                     transition={{ delay: 0.6, duration: 0.5 }}
                 >
                     {item.description || "No description available for this item."}
-                </motion.p>
+                </motion.p> */}
 
                 {/* Update Inventory Button */}
                 <motion.button
