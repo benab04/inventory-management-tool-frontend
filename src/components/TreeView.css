@@ -1,0 +1,84 @@
+/* General Sidebar Styling */
+.tree-view {
+  width: 100%;
+  max-height: 100vh;
+  /* overflow-y: auto; */
+  /* background-color: #f4f6f9; */
+  /* border-right: 1px solid #e0e0e0; */
+  /* box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); */
+  padding: 10px;
+  font-family: "Arial", sans-serif;
+  transition: 0.3s ease;
+  padding-bottom: 20px;
+}
+
+/* Nodes Styling */
+.tree-node {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.tree-node:hover {
+  background-color: #e8eff5;
+}
+
+/* Location Header (collapsible section) */
+.tree-location {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.tree-location:hover {
+  color: #0078d4;
+}
+
+/* Arrow icons with smooth rotation */
+.tree-location span svg {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.tree-location span svg.rotate {
+  transform: rotate(90deg);
+}
+
+/* Tree items styling */
+.tree-item {
+  padding: 6px 10px;
+  margin: 2px 0;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tree-item:hover {
+  background-color: #0078d4;
+  color: white;
+}
+
+/* Indentation for child nodes */
+.tree-children {
+  margin-left: 10px;
+}
+
+/* Scrollbar Styling */
+.tree-view::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tree-view::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.tree-view::-webkit-scrollbar-track {
+  background-color: transparent;
+}

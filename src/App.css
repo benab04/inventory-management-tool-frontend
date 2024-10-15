@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Main container for the entire app */
+.app-container {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column; /* Navbar at the top */
 }
 
-.App-link {
-  color: #61dafb;
+/* Content container for the sidebar and the main content */
+.content-container {
+  display: flex;
+  flex: 1; /* Occupy remaining space below the navbar */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Sidebar styling */
+.sidebar {
+  width: 25%; /* Sidebar takes 25% of the screen width */
+  background-color: #f4f4f4;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Main content styling */
+.main-content {
+  width: 75%; /* Main content takes the remaining 75% of the screen width */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.tree-view {
+  font-family: Arial, sans-serif;
+}
+
+.tree-node,
+.tree-item {
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Hover effect to indicate clickable items */
+.tree-node:hover,
+.tree-item:hover {
+  background-color: #e0e0e0;
+}
+
+.tree-location {
+  font-weight: bold;
+}
+
+.tree-children {
+  padding-left: 5px; /* Add extra indentation for sub-locations and items */
+}
+
+.item-details {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Styling for tree items */
+.tree-item {
+  cursor: pointer;
+  padding: 5px 0;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+/* Hover effect */
+.tree-node:hover,
+.tree-item:hover {
+  background-color: #e0e0e0;
+}
+
+/* Arrow symbol styling (▶/▼) */
+.tree-location span {
+  font-size: 12px;
 }
