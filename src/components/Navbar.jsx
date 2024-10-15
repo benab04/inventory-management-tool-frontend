@@ -7,8 +7,8 @@ function Navbar({ isLoggedIn, onLogout }) {
         <nav className="navbar">
             <h2>Inven<span style={{ color: "green" }}>Tree</span></h2>
             <div className="navbar-links">
-                <Link to="/">Home</Link>
-                <Link to="/tree-view">Inventory</Link>
+                {/* <Link to="/">Home</Link>
+                <Link to="/tree-view">Inventory</Link> */}
             </div>
             <div className="navbar-right">
                 {/* Conditionally render based on login status */}
