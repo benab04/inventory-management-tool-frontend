@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Import js-cookie
 import "./Login.css";
 
 function Login({ onLogin }) {
@@ -7,11 +8,23 @@ function Login({ onLogin }) {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    // Check for login cookie on component mount
+    useEffect(() => {
+        const loggedIn = Cookies.get("isLoggedIn"); // Retrieve the cookie
+        if (loggedIn) {
+            navigate("/warehouses"); // Redirect if cookie exists
+        }
+    }, [navigate]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (username === "admin" && password === "password123") {
-            onLogin(true); // This will call the App.js function and set isLoggedIn to true
-            navigate("/warehouses"); // Redirect to TreeView after login
+            // Set the login cookie with a 30-minute expiration
+            Cookies.set("isLoggedIn", "true", { expires: 1 / 48 }); // 30 minutes = 1/48 days
+
+            onLogin(true); // Update App state to logged in
+            navigate("/warehouses"); // Redirect to /warehouses
         } else {
             alert("Invalid credentials");
         }
@@ -35,7 +48,9 @@ function Login({ onLogin }) {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button className="submit-btn" type="submit">Login</button>
+                <button className="submit-btn" type="submit">
+                    Login
+                </button>
             </form>
         </div>
     );

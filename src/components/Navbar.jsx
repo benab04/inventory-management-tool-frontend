@@ -9,7 +9,7 @@ function Navbar({ isLoggedIn, onLogout }) {
     const navbarClass = location.pathname === "/" ? "navbar navbar-transparent" : "navbar";
     return (
         <nav className={navbarClass}>
-            <h2>Inven<span style={{ color: "green" }}>Tree</span></h2>
+            <Link className="logo-btn" to="/"><h2>Inven<span style={{ color: "green" }}>Tree</span></h2></Link>
             <div className="navbar-links">
                 {/* <Link to="/">Home</Link>
                 <Link to="/tree-view">Inventory</Link> */}

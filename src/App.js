@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TreeView from "./components/TreeView";
 import ItemDetails from "./components/ItemDetails";
@@ -8,17 +8,30 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Cookies from "js-cookie"; // Import js-cookie
 
 function App() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Default isLoggedIn state as false
 
-  const handleLogin = (status) => {
-    setIsLoggedIn(status); // This updates the isLoggedIn state
-  };
+  useEffect(() => {
+    const loggedInCookie = Cookies.get("isLoggedIn"); // Check for the login cookie
+    if (loggedInCookie) {
+      setIsLoggedIn(true); // Set the logged-in state if the cookie exists
+    }
+  }, []);
 
+  const handleLogin = (status) => {
+    setIsLoggedIn(status); // Update login state
+    if (status) {
+      Cookies.set("isLoggedIn", "true", { expires: 1 / 48 }); // Set cookie for 30 minutes
+    }
+  };
   const handleLogout = () => {
-    setIsLoggedIn(false); // Logout sets the isLoggedIn state back to false
+    setIsLoggedIn(false);
+    Cookies.remove("isLoggedIn");
+
+    // Logout sets the isLoggedIn state back to false
   };
 
   return (

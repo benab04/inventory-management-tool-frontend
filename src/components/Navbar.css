@@ -46,7 +46,10 @@
   display: flex;
   align-items: center;
 }
-
+.logo-btn {
+  text-decoration: none;
+  color: inherit;
+}
 .sign-in-btn,
 .user-profile {
   padding: 0.4rem 0.9rem;
