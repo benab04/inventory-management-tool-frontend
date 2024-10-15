@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; // Import js-cookie
+import { ToastContainer, toast } from "react-toastify"; // Import react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import default CSS
 import "./Login.css";
 
 function Login({ onLogin }) {
@@ -8,11 +10,24 @@ function Login({ onLogin }) {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    // Check for login cookie on component mount
     useEffect(() => {
         const loggedIn = Cookies.get("isLoggedIn"); // Retrieve the cookie
         if (loggedIn) {
-            navigate("/warehouses"); // Redirect if cookie exists
+            // Show toast notification if already logged in
+            toast.info("You are already logged in!", {
+                position: "top-right",
+                autoClose: 3000, // Close after 3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            });
+
+            // Redirect after a short delay
+            setTimeout(() => {
+                navigate("/warehouses");
+            }, 3000); // 3 seconds delay
         }
     }, [navigate]);
 
@@ -21,7 +36,7 @@ function Login({ onLogin }) {
 
         if (username === "admin" && password === "password123") {
             // Set the login cookie with a 30-minute expiration
-            Cookies.set("isLoggedIn", "true", { expires: 1 / 48 }); // 30 minutes = 1/48 days
+            Cookies.set("isLoggedIn", "true", { expires: 1 / 48 });
 
             onLogin(true); // Update App state to logged in
             navigate("/warehouses"); // Redirect to /warehouses
@@ -32,6 +47,7 @@ function Login({ onLogin }) {
 
     return (
         <div className="login-page">
+            <ToastContainer /> {/* Required for toast notifications */}
             <form onSubmit={handleSubmit}>
                 <h2 style={{ color: "#001524" }}>Sign In</h2>
                 <input
