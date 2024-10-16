@@ -26,7 +26,11 @@ class ErrorBoundary extends React.Component {
     }
 }
 
-function ItemDetails({ item }) {
+function ItemDetails(props) {
+    const [item, setItem] = useState(props.item)
+    useEffect(() => {
+        setItem(props.item);
+    }, [props.item]);
     const [isEditing, setIsEditing] = useState(false);
     const [updatedItem, setUpdatedItem] = useState(item || {
         name: "",
@@ -88,6 +92,7 @@ function ItemDetails({ item }) {
             if (response.ok) {
                 const updatedData = await response.json();
                 setUpdatedItem(updatedData); // Update with backend response
+                setItem(updatedData)
                 setIsEditing(false);
                 setError(null);
             } else {
@@ -135,7 +140,7 @@ function ItemDetails({ item }) {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <img className="item-image" src={updatedItem.image_url} alt={updatedItem.name} />
+                    <img className="item-image" src={item.image_url} alt={item.name} />
                 </motion.div>
 
                 {/* Right Side: Info Section */}
@@ -153,7 +158,7 @@ function ItemDetails({ item }) {
                                 onChange={handleInputChange}
                             />
                         ) : (
-                            updatedItem.category
+                            item.category
                         )}
                     </div>
 
@@ -172,14 +177,14 @@ function ItemDetails({ item }) {
                                 onChange={handleInputChange}
                             />
                         ) : (
-                            updatedItem.name
+                            item.name
                         )}
                     </motion.h1>
 
                     {/* Stock Status and Brand */}
                     <div className="stock-and-brand">
                         <span
-                            className={`stock-status ${updatedItem.status === "in_stock" ? "in-stock" : "out-of-stock"
+                            className={`stock-status ${item.status === "in_stock" ? "in-stock" : "out-of-stock"
                                 }`}
                         >
                             {isEditing ? (
@@ -191,7 +196,7 @@ function ItemDetails({ item }) {
                                     <option value="in_stock">In Stock</option>
                                     <option value="out_of_stock">Out of Stock</option>
                                 </select>
-                            ) : updatedItem.status === "in_stock" ? (
+                            ) : item.status === "in_stock" ? (
                                 "In Stock"
                             ) : (
                                 "Out of Stock"
@@ -206,7 +211,7 @@ function ItemDetails({ item }) {
                                     onChange={handleInputChange}
                                 />
                             ) : (
-                                `Brand: ${updatedItem.brand}`
+                                `Brand: ${item.brand}`
                             )}
                         </span>
                     </div>
@@ -223,7 +228,7 @@ function ItemDetails({ item }) {
                                     onChange={handleInputChange}
                                 />
                             ) : (
-                                <span className="quantity-value">{updatedItem.quantity}</span>
+                                <span className="quantity-value">{item.quantity}</span>
                             )}
                         </div>
                         <div className="item-price">
@@ -237,7 +242,7 @@ function ItemDetails({ item }) {
                                     onChange={handleInputChange}
                                 />
                             ) : (
-                                <span className="price-value">${updatedItem.price.toFixed(2)}</span>
+                                <span className="price-value">${item.price.toFixed(2)}</span>
                             )}
                         </div>
                     </div>
@@ -249,7 +254,7 @@ function ItemDetails({ item }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.5 }}
                     >
-                        {renderAttributes(updatedItem.attributes)}
+                        {renderAttributes(item.attributes)}
                     </motion.div>
 
                     {/* Update/Confirm Buttons */}
