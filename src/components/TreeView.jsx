@@ -60,8 +60,42 @@ const TreeView = ({ onItemSelected }) => {
                     : item
             )
         );
-    };
 
+        // Call the updateLocation function to simulate backend update
+        const item = items.find((item) => item.item_id === itemId);
+        if (item) {
+            updateLocation(item, newGodownId);
+        }
+    };
+    // Function to simulate sending updated location to the backend
+    const updateLocation = async (item, newGodownId) => {
+        console.log("Updating location...");
+        console.log("Item:", item);
+        console.log("New Location ID:", newGodownId);
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/item/update-location`, {
+                // const response = await fetch(`http://localhost:8000/api/update-location`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    item_id: item.item_id,
+                    new_godown_id: newGodownId,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log("Update successful:", result);
+        } catch (error) {
+            console.error("Failed to update location:", error);
+        }
+    };
     const handleToggle = (nodeId) => {
         setExpandedNodes((prev) =>
             prev.includes(nodeId)

@@ -49,14 +49,20 @@ function ItemDetails(props) {
     if (!item) {
         return (
             <motion.div
-                className="item-details-placeholder"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                className="item-details-container"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <h2>Select an item to view details</h2>
-                <p>Click on any item in the inventory to see its information here.</p>
-            </motion.div>
+                <motion.div
+                    className="item-details-placeholder"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <h2>Select an item to view details</h2>
+                    <p>Click on any item in the inventory to see its information here.</p>
+                </motion.div></motion.div>
         );
     }
 

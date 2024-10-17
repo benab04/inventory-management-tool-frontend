@@ -73,3 +73,17 @@
 .tree-location span {
   font-size: 12px;
 }
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}

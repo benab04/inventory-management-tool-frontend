@@ -53,6 +53,7 @@ body {
 .item-image {
   width: 100%;
   height: auto;
+  max-height: 400px;
   object-fit: contain;
   transition: filter 0.3s ease;
 }
@@ -269,6 +270,7 @@ body {
   border-radius: 4px;
   color: var(--color-text);
   animation: fadeIn 0.5s ease;
+  width: 100%;
 }
 
 .item-details-placeholder h2 {

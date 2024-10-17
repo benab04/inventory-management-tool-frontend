@@ -5,42 +5,49 @@ import ItemDetails from "./components/ItemDetails";
 import Login from "./components/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import SearchResults from "./components/SearchResults"; // Import SearchResults component
 import "./App.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Cookies from "js-cookie"; // Import js-cookie
+import Cookies from "js-cookie";
 
 function App() {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Default isLoggedIn state as false
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [categoryFilter, setCategoryFilter] = useState("all"); // State for category filter
+  const [page, setPage] = useState(1); // State for pagination
 
   useEffect(() => {
-    const loggedInCookie = Cookies.get("isLoggedIn"); // Check for the login cookie
+    const loggedInCookie = Cookies.get("isLoggedIn");
     if (loggedInCookie) {
-      setIsLoggedIn(true); // Set the logged-in state if the cookie exists
+      setIsLoggedIn(true);
     }
   }, []);
 
   const handleLogin = (status) => {
-    setIsLoggedIn(status); // Update login state
+    setIsLoggedIn(status);
     if (status) {
-      Cookies.set("isLoggedIn", "true", { expires: 1 / 48 }); // Set cookie for 30 minutes
+      Cookies.set("isLoggedIn", "true", { expires: 1 / 48 });
     }
   };
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     Cookies.remove("isLoggedIn");
-
-    // Logout sets the isLoggedIn state back to false
   };
 
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        onLogout={handleLogout}
+        setSearchQuery={setSearchQuery} // Pass setSearchQuery
+        setCategoryFilter={setCategoryFilter} // Pass setCategoryFilter
+      />
       <DndProvider backend={HTML5Backend}>
         <div className="app-container">
           <Routes>
-
             {/* Login Route */}
             <Route path="/" element={<Login onLogin={handleLogin} />} />
 
@@ -55,6 +62,13 @@ function App() {
                     </div>
                     <div className="main-content">
                       <ItemDetails item={selectedItem} />
+                      {/* Include the SearchResults component */}
+                      <SearchResults
+                        query={searchQuery}
+                        category={categoryFilter}
+                        page={page}
+                        setPage={setPage}
+                      />
                     </div>
                   </div>
                 </ProtectedRoute>

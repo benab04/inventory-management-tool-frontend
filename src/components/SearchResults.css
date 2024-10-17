@@ -1,0 +1,141 @@
+:root {
+  --color-primary: #15616d;
+  --color-secondary: #001524;
+  --color-accent: #78290f;
+  --color-background: #ffffff;
+  --color-text: #333333;
+  --color-border: #e0e0e0;
+  --color-success: #2e7d32;
+  --color-error: #c62828;
+}
+
+.search-results-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--color-background);
+}
+
+.search-results-container h2 {
+  color: var(--color-primary);
+  margin-bottom: 24px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.search-result-item {
+  background: var(--color-background);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-border);
+}
+
+.search-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(21, 97, 109, 0.15);
+}
+
+.search-result-item h3 {
+  color: var(--color-secondary);
+  margin: 0 0 12px 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.search-result-item p {
+  color: var(--color-text);
+  margin: 8px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 16px 0;
+  flex-wrap: wrap;
+}
+
+.pagination-controls button {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  min-width: 40px;
+}
+
+.pagination-controls button:hover {
+  background: var(--color-border);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pagination-controls button.active {
+  background: var(--color-primary);
+  color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+.pagination-controls span {
+  color: var(--color-text);
+  padding: 0 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-results-container {
+    padding: 16px;
+  }
+
+  .search-result-item {
+    padding: 16px;
+  }
+
+  .search-result-item h3 {
+    font-size: 1.2rem;
+  }
+
+  .pagination-controls button {
+    padding: 6px 12px;
+    min-width: 36px;
+  }
+}
+
+/* Loading State */
+.search-result-item.loading {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* No Results Message */
+.search-results-container p:empty + p {
+  text-align: center;
+  color: var(--color-text);
+  padding: 32px;
+  font-size: 1.1rem;
+  background: var(--color-border);
+  border-radius: 8px;
+  margin-top: 16px;
+}
