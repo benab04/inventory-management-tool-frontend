@@ -74,7 +74,7 @@ const TreeView = ({ onItemSelected }) => {
         console.log("New Location ID:", newGodownId);
 
         try {
-            const response = await fetch(`${BACKEND_URL}/api/item/update-location`, {
+            const response = await fetch(`${BACKEND_URL}/api/update-location`, {
                 // const response = await fetch(`http://localhost:8000/api/update-location`, {
                 method: "POST",
                 headers: {
